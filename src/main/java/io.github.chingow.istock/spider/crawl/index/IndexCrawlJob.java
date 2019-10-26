@@ -1,6 +1,7 @@
 package io.github.chingow.istock.spider.crawl.index;
 
 import io.github.chingow.istock.common.util.spring.SpringContextUtil;
+import io.github.chingow.istock.spider.thread.MonitorScheduledThreadPool;
 import io.github.chingow.istock.spider.thread.MyThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.BulkOperations;
@@ -29,8 +30,8 @@ public class IndexCrawlJob implements Runnable {
     //scheduleAtFixedRate 也就是规定频率为1h，那么好，A任务开始执行，过来一个小时后，不管A是否执行完，都开启B任务
     //scheduleWithFixedDealy却是需要在A任务执行完后，在经过1小时后再去执行B任务；
     public IndexCrawlJob() {
-        scheduledExecutorService = Executors.newScheduledThreadPool(12, new MyThreadFactory("crawlerJob-index"));
-        scheduledExecutorService2 = Executors.newScheduledThreadPool(5, new MyThreadFactory("outJob-index"));
+        scheduledExecutorService = new MonitorScheduledThreadPool(12, new MyThreadFactory("crawlerJob-index"));
+        scheduledExecutorService2 = new MonitorScheduledThreadPool(5, new MyThreadFactory("outJob-index"));
     }
 
     public void stopTask() {

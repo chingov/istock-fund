@@ -60,6 +60,7 @@ public class SimpleTimerJobContainer implements Runnable, IJobExecuteContainer {
 
     @Override
     public void run() {
+        log.info("执行固定频率的周期任务");
         scheduledExecutorService.scheduleAtFixedRate(task, initialDelay, period, unit);
     }
 

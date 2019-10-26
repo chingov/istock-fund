@@ -30,6 +30,7 @@ public class CoreScheduleTimerJobImpl extends AbstractTimerJob {
                 if (null == scheduleJob) {
                     log.info("开启核心调度任务!");
                     ScheduleThread scheduleThread = new ScheduleThread();
+                    // 核心调度任务，每一秒执行一次
                     scheduleJob = new SimpleTimerJobContainer(scheduleThread, 0, 1, TimeUnit.MINUTES, "coreSchedule", 1);
                     Thread thread = new Thread(scheduleJob);
                     // 设置线程为守护线程

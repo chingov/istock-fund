@@ -20,6 +20,7 @@ public class MonitorScheduledThreadPool extends ScheduledThreadPoolExecutor {
     }
 
     public MonitorScheduledThreadPool(int corePoolSize, ThreadFactory threadFactory) {
+        //指定核心线程数，创建线程工厂类
         super(corePoolSize, threadFactory);
     }
 

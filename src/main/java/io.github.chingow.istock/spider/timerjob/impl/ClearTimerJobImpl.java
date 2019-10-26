@@ -1,15 +1,13 @@
 package io.github.chingow.istock.spider.timerjob.impl;
 
-import io.github.chingow.istock.common.util.spring.SpringContextUtil;
 import io.github.chingow.istock.spider.timerjob.AbstractTimerJob;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.io.File;
 import java.util.Arrays;
 
 /**
- * 0点要执行的清理任务
+ * 0点要执行的清理工作
  *
  * @author chingow
  * @create 2019-10-25 15:27
@@ -33,6 +31,9 @@ public class ClearTimerJobImpl extends AbstractTimerJob {
             log.info("清理文件:{} {}", file.getName(), file.delete());
         });
 
-        log.info("{}", "删除历史数据");
+//        mongoTemplate.dropCollection(StockHisPbPe.class);
+//        mongoTemplate.dropCollection(StockReport.class);
+//        mongoTemplate.dropCollection(StockPriceDaily.class);
+//        log.info("{}", "删除历史pb,pe,price,报表数据");
     }
 }
