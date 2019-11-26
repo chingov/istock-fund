@@ -27,7 +27,6 @@ public class TradingDateUtil {
     @Autowired
     private EhcacheUtil ehcacheUtil;
 
-
     /**
      * 以20190606这种方式返回当前日期
      *
