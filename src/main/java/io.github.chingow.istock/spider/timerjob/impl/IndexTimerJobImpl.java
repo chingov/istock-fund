@@ -8,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 指数更新任务
  *
- * @author chenguoxiang
- * @create 2019-04-01 16:21
+ * @author chingow
+ * @create 2019-10-21 20:21
  **/
 @Slf4j
 public class IndexTimerJobImpl extends AbstractTimerJob {

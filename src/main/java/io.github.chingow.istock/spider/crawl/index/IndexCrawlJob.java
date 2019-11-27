@@ -47,6 +47,7 @@ public class IndexCrawlJob implements Runnable {
 
     private void top() {
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) scheduledExecutorService;
+
         log.info("总线程数{},活动线程数{},执行完成线程数{},排队线程数{},数据队列数{}",
                 threadPoolExecutor.getTaskCount(),
                 threadPoolExecutor.getActiveCount(),
@@ -70,31 +71,33 @@ public class IndexCrawlJob implements Runnable {
             ex.printStackTrace();
         }
 
-        scheduledExecutorService2.scheduleWithFixedDelay(
-                new Thread(() -> {
-                    top();
-                    int index = fundQueue.size() > 1000 ? 1000 : fundQueue.size();
-                    if (index == 0) {
-                        return;
-                    }
-                    //这里的BulkMode.UNORDERED是个枚举，，，collectionName是mongo的集合名
-                    BulkOperations ops = template.bulkOps(BulkOperations.BulkMode.UNORDERED, "stock");
-                    for (int i = 0; i < index; i++) {
-                        Fund fund = fundQueue.poll();
-                        ops.upsert(new Query(Criteria.where("_id").is(fund.getCode())), new Update()
-                                .set("_id", fund.getCode())
-                                .set("type", fund.getType())
-                                .set("name", fund.getName())
-                                .set("price", fund.getPrice())
-                                .set("yesterdayPrice", fund.getYesterdayPrice())
-                                .set("fluctuate", fund.getFluctuate())
-                                .set("todayMax", fund.getTodayMax())
-                                .set("todayMin", fund.getTodayMin())
-                                .set("priceDate", fund.getPriceDate()));
-                    }
+        scheduledExecutorService2.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                top();
+                int index = fundQueue.size() > 1000 ? 1000 : fundQueue.size();
+                if (index == 0) {
+                    return;
+                }
+                //这里的BulkMode.UNORDERED是个枚举，，，collectionName是mongo的集合名
+                BulkOperations ops = template.bulkOps(BulkOperations.BulkMode.UNORDERED, "stock");
+                for (int i = 0; i < index; i++) {
+                    Fund fund = fundQueue.poll();
+                    ops.upsert(new Query(Criteria.where("_id").is(fund.getCode())), new Update()
+                            .set("_id", fund.getCode())
+                            .set("type", fund.getType())
+                            .set("name", fund.getName())
+                            .set("price", fund.getPrice())
+                            .set("yesterdayPrice", fund.getYesterdayPrice())
+                            .set("fluctuate", fund.getFluctuate())
+                            .set("todayMax", fund.getTodayMax())
+                            .set("todayMin", fund.getTodayMin())
+                            .set("priceDate", fund.getPriceDate()));
+                }
 
-                    //循环插完以后批量执行提交一下ok！
-                    ops.execute();
-                }), 0, 2, TimeUnit.SECONDS);
+                //循环插完以后批量执行提交一下ok！
+                ops.execute();
+            }
+        }, 0, 2, TimeUnit.SECONDS);
     }
 }
