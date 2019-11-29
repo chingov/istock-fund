@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MyThreadFactory implements ThreadFactory {
 
     private AtomicInteger counter = new AtomicInteger(0);
-    private String name;
+    protected String name;
 
     public MyThreadFactory(String name) {
         this.name = name;
