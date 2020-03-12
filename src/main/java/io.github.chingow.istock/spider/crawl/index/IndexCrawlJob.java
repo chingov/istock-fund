@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -79,7 +78,7 @@ public class IndexCrawlJob implements Runnable {
                 if (index == 0) {
                     return;
                 }
-                //这里的BulkMode.UNORDERED是个枚举，，，collectionName是mongo的集合名
+                //这里的BulkMode.UNORDERED是个枚举，collectionName是mongo的集合名
                 BulkOperations ops = template.bulkOps(BulkOperations.BulkMode.UNORDERED, "stock");
                 for (int i = 0; i < index; i++) {
                     Fund fund = fundQueue.poll();

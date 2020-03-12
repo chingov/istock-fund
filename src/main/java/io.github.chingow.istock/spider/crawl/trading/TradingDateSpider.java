@@ -23,7 +23,7 @@ import java.util.concurrent.Callable;
 @Slf4j
 public class TradingDateSpider implements Callable<Map<String, Boolean>> {
 
-    private final String baseUrl = "http://www.szse.cn/api/report/exchange/onepersistentday/monthList";
+    private final String baseUrl = "http://www.szse.cn/api/report/exchange/onepersistenthour/monthList";
     private String month;
     private String url;
 

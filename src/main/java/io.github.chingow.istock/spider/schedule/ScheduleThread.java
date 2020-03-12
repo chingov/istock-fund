@@ -38,6 +38,31 @@ public class ScheduleThread implements Runnable {
                 log.info("not trade time and after 15 hours . crawl other info ~ ");
             }
         }
+
+        switch (dateTime.getHour()) {
+            case 0:
+                //晚上12点
+                if(dateTime.getMinute()==02){
+                    // 清理
+                    ITimerJobFactory.getJob(ITimerJobFactory.TimerJob.CLEAR).execute(null);
+                    }
+                break;
+            case 1:
+                break;
+            case 9:
+                //早上9点
+                break;
+            case 11:
+                //上午11点
+                break;
+            case 13:
+                //下午1点
+                break;
+            case 15:
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

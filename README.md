@@ -1,14 +1,12 @@
 ## istock-fund
 
-![license](https://img.shields.io/github/license/chingov/istock-fund.svg)
+![license](https://img.shields.io/badge/license-MIT-green.svg)
 
 > 本应用衍生自 `kingschan1204`的[istock ](https://github.com/kingschan1204/istock) ，是基于Spring boot 实现的股票基金爬虫工具，数据来源于：
 
-- `雪球`
-- `同花顺`
-- `东方财富`
-- `上交所`
 - `深交所`
+- `新浪财经`
+- `腾讯财经`
 
 ## Declare
 
